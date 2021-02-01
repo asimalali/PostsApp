@@ -14,19 +14,37 @@
   </data>
 
 
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
     android:background="@color/white"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    >
 
     <include
+        android:id="@+id/appHeader"
         layout="@layout/layout_app_header"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
+    <TextView
+        android:id="@+id/txtNoPosts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:drawablePadding="@dimen/spacing_8dp"
+        android:text="@string/no_posts"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/text_size_12sp"
+        app:drawableTopCompat="@drawable/ic_empty_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible"
+        android:visibility="@{viewmodel.isDataAvailable() ? View.GONE : View.VISIBLE}"
+        />
 
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/rcvPosts"
@@ -36,7 +54,8 @@
        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
        tools:listitem="@layout/item_posts"
        app:posts="@{viewmodel.postsListLiveData}"
+       app:layout_constraintTop_toBottomOf="@+id/appHeader"
        />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

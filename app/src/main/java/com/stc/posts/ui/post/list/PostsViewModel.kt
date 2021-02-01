@@ -17,17 +17,15 @@ class PostsViewModel @ViewModelInject constructor(
 ) : BaseViewModel() {
 
     val postsListLiveData = SingleLiveEvent<List<Post>?>()
-    val isDataAvailable : LiveData<Boolean> = postsListLiveData.map {
-        it!!.isNotEmpty()
+    val isDataAvailable : LiveData<Boolean?> = postsListLiveData.map {
+        it?.isNotEmpty()
     }
     private val _uiState = SingleLiveEvent<PostsState>()
     val uiState : LiveData<PostsState> = _uiState
 
-
     init {
         getPosts()
     }
-
     private fun getPosts() {
             viewModelScope.launch {
                 _uiState.postValue(PostsState.Loading)
@@ -44,7 +42,6 @@ class PostsViewModel @ViewModelInject constructor(
                 }
             }
     }
-
 
     sealed class PostsState {
         object Loading : PostsState()

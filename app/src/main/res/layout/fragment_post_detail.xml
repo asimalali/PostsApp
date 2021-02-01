@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="user id"
+                android:text="@string/user_id"
                 android:textSize="@dimen/text_size_16sp"
                 android:textColor="@color/grey"
 
@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="id"
+                android:text="@string/id"
                 android:textSize="@dimen/text_size_16sp"
                 android:textColor="@color/grey"
 
@@ -97,7 +97,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title "
+            android:text="@string/title"
             android:textSize="@dimen/text_size_16sp"
             android:textColor="@color/grey"
 
@@ -127,7 +127,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Body "
+            android:text="@string/body"
             android:textSize="@dimen/text_size_16sp"
             android:textColor="@color/grey"
             />

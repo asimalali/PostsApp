@@ -1,10 +1,12 @@
 package com.stc.posts.data.common.mappers
 
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
+
+import com.stc.posts.MyApp
+import com.stc.posts.R
+import com.stc.posts.data.common.ERROR_NETWORK
+import com.stc.posts.data.common.ERROR_UNKNOWN
 import com.stc.posts.data.common.model.ErrorObject
 import com.stc.posts.data.common.model.RemoteError
-import org.xml.sax.ErrorHandler
 import java.io.IOException
 
 
@@ -16,13 +18,14 @@ fun RemoteError.toErrorObject(httpCode : Int) : ErrorObject {
   )
 }
 
-fun getDefaultErrorObject(code: Int = -1) = ErrorObject(
-  code = -1,
-  message =" "
+fun getDefaultErrorObject(code: Int = ERROR_UNKNOWN) = ErrorObject(
+  code = ERROR_UNKNOWN,
+  message = MyApp.getContext().getString(R.string.default_error)
+
 )
 
 fun IOException.toErrorObject() =
   ErrorObject(
-    code = -1,
-    message = ""
+    code = ERROR_NETWORK,
+    message = MyApp.getContext().getString(R.string.no_internet_connection)
   )
