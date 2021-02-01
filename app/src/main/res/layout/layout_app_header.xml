@@ -38,6 +38,7 @@
         android:layout_marginEnd="@dimen/dim_16dp"
         android:layout_weight="1"
         android:gravity="center_vertical"
+        android:textSize="@dimen/text_size_20sp"
         tools:text="Common" />
 
 </LinearLayout>
