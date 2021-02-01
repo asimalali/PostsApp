@@ -1,0 +1,17 @@
+<resources>
+
+
+<!--  <style name="AppTheme.TextView" parent="android:Widget.TextView">-->
+<!--    <item name="android:textColor">@color/text_color_primary_dark</item>-->
+<!--    <item name="android:textSize">@dimen/text_size_14sp</item>-->
+<!--  </style>-->
+
+<!--  <style name="AppTheme.TextView.HeaderTitle" parent="android:Widget.TextView">-->
+<!--    <item name="android:textColor">@android:color/white</item>-->
+<!--    <item name="android:textSize">20sp</item>-->
+<!--    <item name="android:elevation">@dimen/dim_4dp</item>-->
+<!--    <item name="android:shadowColor">#99000000</item>-->
+<!--    <item name="android:shadowDy">1</item>-->
+<!--    <item name="android:shadowRadius">3</item>-->
+<!--  </style>-->
+</resources>
