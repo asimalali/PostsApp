@@ -34,7 +34,11 @@ class PostDetailFragment  : BaseFragment(){
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btnHeaderBack.isVisible = true
-        txtHeaderTitle.text = "Post Detail"
+        setTexts()
+    }
+
+    private fun setTexts(){
+        txtHeaderTitle.text = getString(R.string.post_detail)
         args.post.apply {
             txtId.text = id.toString()
             txtBody.text = body

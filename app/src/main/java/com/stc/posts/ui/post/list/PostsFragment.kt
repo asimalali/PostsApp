@@ -38,7 +38,7 @@ class PostsFragment : BaseViewModelFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        txtHeaderTitle.text = "Posts"
+        txtHeaderTitle.text = getString(R.string.posts)
         rcvPosts.adapter = PostsAdapter(viewModel) {
             findNavController().navigate(
                 PostsFragmentDirections.actionPostsFragmentToPostDetailFragment(it)
