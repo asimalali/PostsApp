@@ -1,20 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools">
-
-  <data>
-
-    <import type="android.view.View" />
-
-    <variable
-      name="viewmodel"
-      type="com.stc.posts.ui.post.list.PostsViewModel" />
-
-  </data>
-
-
 <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -43,19 +31,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:visibility="visible"
-        android:visibility="@{viewmodel.isDataAvailable() ? View.GONE : View.VISIBLE}"
         />
 
-   <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/rcvPosts"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:splitMotionEvents="false"
-       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-       tools:listitem="@layout/item_posts"
-       app:posts="@{viewmodel.postsListLiveData}"
-       app:layout_constraintTop_toBottomOf="@+id/appHeader"
-       />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvPosts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:splitMotionEvents="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_posts"
+        app:layout_constraintTop_toBottomOf="@+id/appHeader"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>

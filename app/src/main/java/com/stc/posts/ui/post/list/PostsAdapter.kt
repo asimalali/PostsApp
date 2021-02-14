@@ -1,57 +1,48 @@
 package com.stc.posts.ui.post.list
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.stc.posts.R
 import com.stc.posts.domain.model.Post
 import com.stc.posts.databinding.ItemPostsBinding
 import timber.log.Timber
 
 class PostsAdapter(
-private val viewModel : PostsViewModel,
-private val doOnClick : (postItem : Post) -> Unit
-) : ListAdapter<Post, PostsAdapter.ViewHolder>(PostsDiffCallback()) {
+    private val context: Context,
+    private val items: List<Post>,
+    private val doOnClick : (postItem : Post) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent : ViewGroup, viewType : Int) = ViewHolder(
-        ItemPostsBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val rootView: View =
+            LayoutInflater.from(context).inflate(R.layout.item_posts, parent, false)
+        return ViewHolder(rootView)
+    }
 
-    override fun onBindViewHolder(
-        holder : ViewHolder,
-        position : Int
-    ) = holder.bind(
-        viewModel,
-        getItem(position),
-        doOnClick
-    )
+    override fun getItemCount(): Int {
+        return items.size
+    }
 
-    inner class ViewHolder(private val binding : ItemPostsBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val viewHolder = holder as ViewHolder
 
-        fun bind(
-            viewModel : PostsViewModel,
-            item : Post,
-            doOnClick : (post : Post) -> Unit
-        ) = with(binding) {
-            Timber.d("123456")
-            viewmodel = viewModel
-            post = item
-            itemView.setOnClickListener { doOnClick(item) }
-        }
+        val item = items[position]
+
+        viewHolder.postTitle.text = item.title
+        viewHolder.postTitle.setOnClickListener { doOnClick(item) }
+
+    }
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var postTitle: TextView = itemView.findViewById(R.id.postTitle)
     }
 }
 
 
-class PostsDiffCallback : DiffUtil.ItemCallback<Post>() {
-    override fun areItemsTheSame(oldItem : Post, newItem : Post) =
-        oldItem.title == newItem.title
-
-    override fun areContentsTheSame(oldItem : Post, newItem : Post) =
-        oldItem == newItem
-}

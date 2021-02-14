@@ -16,11 +16,7 @@ class PostsViewModel @ViewModelInject constructor(
     private val postsRepository : PostsRepository
 ) : BaseViewModel() {
 
-    val postsListLiveData = SingleLiveEvent<List<Post>?>()
-    val isDataAvailable : LiveData<Boolean?> = postsListLiveData.map {
-        it?.isNotEmpty()
-    }
-    private val _uiState = SingleLiveEvent<PostsState>()
+    private val _uiState = MutableLiveData<PostsState>()
     val uiState : LiveData<PostsState> = _uiState
 
     init {
@@ -32,9 +28,8 @@ class PostsViewModel @ViewModelInject constructor(
                 val result = postsRepository.getPosts()
                 when (result) {
                     is CallResult.Success -> {
-                        postsListLiveData.postValue(result.data)
+                        _uiState.postValue(PostsState.Success(result.data!!))
                         Timber.d("SIZE: ${result.data!!.size}")
-                        _uiState.postValue(PostsState.HideLoading)
                     }
                     is CallResult.Fail -> {
                         _uiState.postValue(PostsState.Error(result.error))
@@ -45,8 +40,9 @@ class PostsViewModel @ViewModelInject constructor(
 
     sealed class PostsState {
         object Loading : PostsState()
-        object HideLoading : PostsState()
         data class Error(val error : ErrorObject) : PostsState()
+        data class Success(val posts : List<Post>) : PostsState()
+
     }
 
 }

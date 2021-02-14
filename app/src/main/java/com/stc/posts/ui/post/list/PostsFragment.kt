@@ -8,9 +8,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.stc.posts.R
 import com.stc.posts.common.base.fragment.BaseViewModelFragment
-import com.stc.posts.databinding.FragmentPostsListBinding
 import com.stc.posts.ui.post.list.PostsViewModel.*
 import com.stc.posts.ui.post.list.PostsViewModel.PostsState.*
 import com.stc.posts.util.ext.showErrorDialog
@@ -25,25 +25,17 @@ class PostsFragment : BaseViewModelFragment() {
     override val viewModel: PostsViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_posts_list, container, false)
-        FragmentPostsListBinding.bind(root).apply {
-            lifecycleOwner = this@PostsFragment
-            viewmodel = viewModel
-        }
-        return root    }
+        return inflater.inflate(R.layout.fragment_posts_list, container, false)
+    }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         txtHeaderTitle.text = getString(R.string.posts)
-        rcvPosts.adapter = PostsAdapter(viewModel) {
-            findNavController().navigate(
-                PostsFragmentDirections.actionPostsFragmentToPostDetailFragment(it)
-            )
-        }
     }
 
     override fun observeUi() {
@@ -52,10 +44,22 @@ class PostsFragment : BaseViewModelFragment() {
                 is Loading -> {
                     showLoading()
                 }
-                is HideLoading -> {
+                is Success ->{
+                    val layoutManager = LinearLayoutManager(requireContext())
+                    val cityAdapter = PostsAdapter(requireContext(), state.posts
+                    ) {
+                        findNavController().navigate(
+                            PostsFragmentDirections.actionPostsFragmentToPostDetailFragment(it)
+                        )
+                    }
+                    rcvPosts.layoutManager = layoutManager
+                    rcvPosts.adapter = cityAdapter
                     hideLoading()
+                    txtNoPosts.isVisible = false
+
                 }
                 is Error -> {
+                    txtNoPosts.isVisible = true
                     hideLoading()
                     Timber.d("Error .. . . ")
                     showErrorDialog(state.error.message)
@@ -64,8 +68,6 @@ class PostsFragment : BaseViewModelFragment() {
         })
 
     }
-
-
 
     override fun setOnClickListeners() {
 
