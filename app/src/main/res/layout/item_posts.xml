@@ -9,11 +9,11 @@
 
     <variable
       name="post"
-      type="com.stc.posts.domain.model.Post" />
+      type="com.mvvm.posts.domain.model.Post" />
 
     <variable
       name="viewmodel"
-        type="com.stc.posts.ui.post.list.PostsViewModel" />
+        type="com.mvvm.posts.ui.post.list.PostsViewModel" />
   </data>
 
 

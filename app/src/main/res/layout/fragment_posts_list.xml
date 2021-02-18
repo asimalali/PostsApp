@@ -9,7 +9,7 @@
 
     <variable
       name="viewmodel"
-      type="com.stc.posts.ui.post.list.PostsViewModel" />
+      type="com.mvvm.posts.ui.post.list.PostsViewModel" />
 
   </data>
 

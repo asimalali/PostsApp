@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/PostsFragment"
-        android:name="com.stc.posts.ui.post.list.PostsFragment"
+        android:name="com.mvvm.posts.ui.post.list.PostsFragment"
         android:label="DashboardFragment"
         tools:layout="@layout/fragment_posts_list"
        >
@@ -23,12 +23,12 @@
     </fragment>
     <fragment
         android:id="@+id/postDetailFragment"
-        android:name="com.stc.posts.ui.post.detail.PostDetailFragment"
+        android:name="com.mvvm.posts.ui.post.detail.PostDetailFragment"
         tools:layout="@layout/fragment_post_detail"
         android:label="PostDetailFragment" >
         <argument
             android:name="post"
-            app:argType="com.stc.posts.domain.model.Post"
+            app:argType="com.mvvm.posts.domain.model.Post"
             app:nullable="false"
             />
     </fragment>
