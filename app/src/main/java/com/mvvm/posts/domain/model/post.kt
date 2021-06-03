@@ -7,14 +7,14 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Post(
     @SerializedName("userId")
-    val userId : Int,
+    val userId : Int?,
 
     @SerializedName("title")
-    val title : String,
+    val title : String?,
 
     @SerializedName("id")
-    val id : Int ,
+    val id : Int? ,
 
     @SerializedName("body")
-    val body : String = ""
+    val body : String? = ""
 ): Parcelable

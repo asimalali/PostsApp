@@ -11,7 +11,7 @@ import com.mvvm.posts.domain.model.Post
 
 class PostsAdapter(
     private val context: Context,
-    private val items: List<Post>,
+    private val items: List<Post>?,
     private val doOnClick : (postItem : Post) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -22,16 +22,23 @@ class PostsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        if (items != null) {
+            return items.size
+        }
+        return 0
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewHolder = holder as ViewHolder
 
-        val item = items[position]
+        val item = items?.get(position)
 
-        viewHolder.postTitle.text = item.title
-        viewHolder.postTitle.setOnClickListener { doOnClick(item) }
+        viewHolder.postTitle.text = item?.title
+        viewHolder.postTitle.setOnClickListener {
+            if (item != null) {
+                doOnClick(item)
+            }
+        }
 
     }
 

@@ -101,5 +101,12 @@ dependencies {
     // swiperefresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
+    //room database
+    def room_version = "2.2.5"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt 'android.arch.persistence.room:compiler:2.2.5'
+
 
 }
