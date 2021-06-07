@@ -7,7 +7,7 @@ import com.mvvm.posts.data.db.AppDatabase
 import com.mvvm.posts.data.db.dao.PostDao
 import com.mvvm.posts.data.mappers.toPostEntity
 import com.mvvm.posts.data.posts.PostsRemoteSource
-import com.mvvm.posts.domain.model.Post
+import com.mvvm.posts.domain.model.PostItem
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -19,7 +19,7 @@ class PostsRemoteSourceImp @Inject constructor(
 ) : PostsRemoteSource {
     private val postDao: PostDao = appDatabase.postDao()
 
-    override suspend fun getPosts(): CallResult<List<Post>> {
+    override suspend fun getPosts(): CallResult<List<PostItem>> {
         val result = apiService.getPosts()
 
         if (result is Success){

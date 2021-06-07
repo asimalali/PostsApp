@@ -9,7 +9,7 @@
 
     <variable
       name="post"
-      type="com.mvvm.posts.domain.model.Post" />
+      type="com.mvvm.posts.domain.model.PostItem" />
 
     <variable
       name="viewmodel"

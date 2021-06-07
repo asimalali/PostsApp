@@ -1,5 +1,6 @@
 package com.mvvm.posts.data.common.model
 
+import com.mvvm.posts.data.NetworkResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.CallAdapter
@@ -8,13 +9,54 @@ import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
-class NetworkResponseAdapterFactory : CallAdapter.Factory() {
+//class NetworkResponseAdapterFactory : CallAdapter.Factory() {
+//
+//    override fun get(
+//        returnType : Type,
+//        annotations : Array<Annotation>,
+//        retrofit : Retrofit
+//    ) : CallAdapter<*, *>? {
+//
+//        // suspend functions wrap the response type in `Call`
+//        if (Call::class.java != getRawType(returnType)) {
+//            return null
+//        }
+//
+//        // check first that the return type is `ParameterizedType`
+//        check(returnType is ParameterizedType) {
+//            ""
+//        }
+//
+//        // get the response type inside the `Call` type
+//        val responseType = getParameterUpperBound(0, returnType)
+//        // if the response type is not NetworkResponse then we can't handle this type, so we return null
+//        if (getRawType(responseType) != CallResult::class.java) {
+//            return null
+//        }
+//
+//        // the response type is NetworkResponse and should be parameterized
+//        check(responseType is ParameterizedType) { "" }
+//
+//        val successBodyType = getParameterUpperBound(0, responseType)
+//
+//
+//        val errorBodyConverter : Converter<ResponseBody, RemoteError> =
+//            retrofit.responseBodyConverter(RemoteError::class.java, annotations)
+//
+//        return NetworkResponseAdapter<Any>(successBodyType, errorBodyConverter)
+//    }
+//}
+
+
+
+
+class NetworkResponseAdapterFactory() : CallAdapter.Factory() {
 
     override fun get(
-        returnType : Type,
-        annotations : Array<Annotation>,
-        retrofit : Retrofit
-    ) : CallAdapter<*, *>? {
+            returnType: Type,
+            annotations: Array<Annotation>,
+            retrofit: Retrofit
+    ): CallAdapter<*, *>? {
 
         // suspend functions wrap the response type in `Call`
         if (Call::class.java != getRawType(returnType)) {
@@ -23,25 +65,25 @@ class NetworkResponseAdapterFactory : CallAdapter.Factory() {
 
         // check first that the return type is `ParameterizedType`
         check(returnType is ParameterizedType) {
-            ""
+            "return type must be parameterized as Call<NetworkResponse<<Foo>> or Call<NetworkResponse<out Foo>>"
         }
 
         // get the response type inside the `Call` type
         val responseType = getParameterUpperBound(0, returnType)
         // if the response type is not NetworkResponse then we can't handle this type, so we return null
-        if (getRawType(responseType) != CallResult::class.java) {
+        if (getRawType(responseType) != NetworkResponse::class.java) {
             return null
         }
 
         // the response type is NetworkResponse and should be parameterized
-        check(responseType is ParameterizedType) { "" }
+        check(responseType is ParameterizedType) { "Response must be parameterized as NetworkResponse<Foo> or NetworkResponse<out Foo>" }
 
         val successBodyType = getParameterUpperBound(0, responseType)
+        val errorBodyType = getParameterUpperBound(1, responseType)
 
+        val errorBodyConverter =
+                retrofit.nextResponseBodyConverter<Any>(null, errorBodyType, annotations)
 
-        val errorBodyConverter : Converter<ResponseBody, RemoteError> =
-            retrofit.responseBodyConverter(RemoteError::class.java, annotations)
-
-        return NetworkResponseAdapter<Any>(successBodyType, errorBodyConverter)
+        return NetworkResponseAdapter<Any, Any>(successBodyType, errorBodyConverter)
     }
 }

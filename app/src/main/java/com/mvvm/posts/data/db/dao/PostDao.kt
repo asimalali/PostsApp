@@ -12,12 +12,8 @@ interface PostDao {
     @Query("SELECT * FROM posts WHERE userId LIKE :nationalId")
     fun findByUserId(nationalId: String?): LiveData<PostEntity>
 
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insert(vararg users: UserEntity)
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(posts: List<PostEntity>)
-
 
     @Delete
     fun deleteAll(user: PostEntity)

@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mvvm.posts.R
-import com.mvvm.posts.domain.model.Post
+import com.mvvm.posts.domain.model.PostItem
 
 class PostsAdapter(
-    private val context: Context,
-    private val items: List<Post>?,
-    private val doOnClick : (postItem : Post) -> Unit
+        private val context: Context,
+        private val items: List<PostItem>?,
+        private val doOnClick : (postItemItem : PostItem) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

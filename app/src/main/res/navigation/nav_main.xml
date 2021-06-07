@@ -28,7 +28,7 @@
         android:label="PostDetailFragment" >
         <argument
             android:name="post"
-            app:argType="com.mvvm.posts.domain.model.Post"
+            app:argType="com.mvvm.posts.domain.model.PostItem"
             app:nullable="false"
             />
     </fragment>

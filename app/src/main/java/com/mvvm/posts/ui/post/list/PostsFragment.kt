@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvvm.posts.R
 import com.mvvm.posts.common.base.fragment.BaseViewModelFragment
-import com.mvvm.posts.ui.post.list.PostsViewModel.PostsState.*
+import com.mvvm.posts.data.StateData
 import com.mvvm.posts.util.ext.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_posts_list.*
@@ -38,30 +38,39 @@ class PostsFragment : BaseViewModelFragment() {
     }
 
     override fun observeUi() {
-        viewModel.uiState.observe(viewLifecycleOwner, Observer{ state ->
-            when (state) {
-                is Loading -> {
+
+        viewModel.postsLive.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                if(it.status == StateData.DataStatus.LOADING){
                     showLoading()
                 }
-                is Success ->{
-                    val layoutManager = LinearLayoutManager(requireContext())
-                    val cityAdapter = PostsAdapter(requireContext(), state.posts
-                    ) {
-                        findNavController().navigate(
-                            PostsFragmentDirections.actionPostsFragmentToPostDetailFragment(it)
-                        )
+                when (it.status) {
+                    StateData.DataStatus.SUCCESS -> {
+                        if (it.data != null && it.data.isNotEmpty()) {
+                            val layoutManager = LinearLayoutManager(requireContext())
+                            val cityAdapter = PostsAdapter(requireContext(), it.data
+                            ) {
+                                findNavController().navigate(
+                                        PostsFragmentDirections.actionPostsFragmentToPostDetailFragment(it)
+                                )
+                            }
+                            rcvPosts.layoutManager = layoutManager
+                            rcvPosts.adapter = cityAdapter
+                            hideLoading()
+                            txtNoPosts.isVisible = false
+                        } else {
+                            Timber.d("NOT FOUND")
+                            txtNoPosts.isVisible = true
+                            hideLoading()
+                        }
                     }
-                    rcvPosts.layoutManager = layoutManager
-                    rcvPosts.adapter = cityAdapter
-                    hideLoading()
-                    txtNoPosts.isVisible = false
-
-                }
-                is Error -> {
-                    txtNoPosts.isVisible = true
-                    hideLoading()
-                    Timber.d("Error .. . . ")
-                    showErrorDialog(state.error.message)
+                    StateData.DataStatus.ERROR -> {
+                        Timber.d(it.data.toString())
+                        txtNoPosts.isVisible = true
+                        hideLoading()
+                        Timber.d("Error .. . . ")
+                        showErrorDialog("Error")
+                    }
                 }
             }
         })
