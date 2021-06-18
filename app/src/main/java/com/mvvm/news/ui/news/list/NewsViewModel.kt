@@ -19,32 +19,15 @@ class NewsViewModel @ViewModelInject constructor(
     private val NewsRepo: NewsRepo
 ) : BaseViewModel() {
 
-    private val _uiState = SingleLiveEvent<PostsState>()
-    val uiState : LiveData<PostsState> = _uiState
+    val NewsLive = MediatorLiveData<Resource<List<NewsItem>>>()
+    private var allNews: LiveData<Resource<List<NewsItem>>> = NullableLiveData.create()
+
 
     init {
-        getPosts()
-    }
-    private fun getPosts() {
-        viewModelScope.launch {
-            _uiState.postValue(PostsState.Loading)
-            val result = postsRepository.getPosts()
-            when (result) {
-                is CallResult.Success -> {
-                    postsListLiveData.postValue(result.data)
-                    Timber.d("SIZE: ${result.data!!.size}")
-                    _uiState.postValue(PostsState.HideLoading)
-                }
-                is CallResult.Fail -> {
-                    _uiState.postValue(PostsState.Error(result.error))
-                }
-            }
+        allNews = NewsRepo.getNewNews()
+        NewsLive.addSource(allNews) {
+            NewsLive.value = it
         }
     }
 
-    sealed class PostsState {
-        object Loading : PostsState()
-        object HideLoading : PostsState()
-        data class Error(val error : ErrorObject) : PostsState()
-    }
 }
