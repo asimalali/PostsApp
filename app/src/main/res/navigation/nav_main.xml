@@ -3,32 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/PostsFragment">
+    app:startDestination="@id/NewsFragment">
 
     <fragment
-        android:id="@+id/PostsFragment"
-        android:name="com.mvvm.posts.ui.post.list.PostsFragment"
+        android:id="@+id/NewsFragment"
+        android:name="com.mvvm.News.ui.News.list.NewsFragment"
         android:label="DashboardFragment"
-        tools:layout="@layout/fragment_posts_list"
+        tools:layout="@layout/fragment_News_list"
        >
 
         <action
-            android:id="@+id/action_PostsFragment_to_postDetailFragment"
+            android:id="@+id/action_NewsFragment_to_NewsDetailFragment"
             app:enterAnim="@anim/enter_right_to_left"
             app:exitAnim="@anim/exit_left_to_right"
             app:popEnterAnim="@anim/enter_left_to_right"
             app:popExitAnim="@anim/exit_right_to_left"
-            app:destination="@id/postDetailFragment" />
+            app:destination="@id/NewsDetailFragment" />
 
     </fragment>
     <fragment
-        android:id="@+id/postDetailFragment"
-        android:name="com.mvvm.posts.ui.post.detail.PostDetailFragment"
-        tools:layout="@layout/fragment_post_detail"
-        android:label="PostDetailFragment" >
+        android:id="@+id/NewsDetailFragment"
+        android:name="com.mvvm.News.ui.News.detail.NewsDetailFragment"
+        tools:layout="@layout/fragment_News_detail"
+        android:label="NewsDetailFragment" >
         <argument
-            android:name="post"
-            app:argType="com.mvvm.posts.domain.model.PostItem"
+            android:name="News"
+            app:argType="com.mvvm.News.domain.model.NewsItem"
             app:nullable="false"
             />
     </fragment>

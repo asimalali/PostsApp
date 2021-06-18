@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Posts</string>
+    <string name="app_name">News</string>
 
-<!--    Post-->
-    <string name="no_posts">No Post</string>
-    <string name="posts">Posts</string>
-    <string name="post_detail">Post Detail</string>
+<!--    News-->
+    <string name="no_News">No News</string>
+    <string name="News">News</string>
+    <string name="News_detail">News Detail</string>
     <string name="title">Title</string>
     <string name="id">id</string>
     <string name="user_id">User id</string>

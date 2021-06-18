@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.mvvm.posts"
+        applicationId "com.mvvm.news"
         minSdkVersion 29
         targetSdkVersion 30
         versionCode 1
