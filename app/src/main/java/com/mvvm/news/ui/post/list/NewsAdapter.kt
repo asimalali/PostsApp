@@ -11,6 +11,7 @@ import com.mvvm.news.R
 import com.mvvm.news.domain.model.News
 import com.mvvm.news.domain.model.NewsArticle
 import com.mvvm.news.domain.model.NewsResponse
+import com.mvvm.news.util.ext.getDateWithoutTime
 import com.mvvm.news.util.ext.setImageFromUrl
 
 class NewsAdapter(
@@ -34,14 +35,16 @@ class NewsAdapter(
 
         val item = items[position]
 
-        viewHolder.NewsTitle.text = item.title
+        viewHolder.ArticleTitle.text = item.title
+        viewHolder.ArticleTime.text = getDateWithoutTime(dateString = item.publishedAt )
         item.urlToImage?.let { viewHolder.image.setImageFromUrl(it) }
-        viewHolder.NewsTitle.setOnClickListener { doOnClick(item) }
+        viewHolder.ArticleTitle.setOnClickListener { doOnClick(item) }
 
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var NewsTitle: TextView = itemView.findViewById(R.id.NewsTitle)
+        var ArticleTitle: TextView = itemView.findViewById(R.id.NewsTitle)
+        var ArticleTime: TextView = itemView.findViewById(R.id.articleTime)
         var image: ImageView = itemView.findViewById(R.id.imageArticle)
     }
 }

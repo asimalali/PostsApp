@@ -28,20 +28,37 @@
       android:padding="@dimen/dim_5dp"
       />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      android:orientation="vertical"
+      >
   <TextView
       android:id="@+id/NewsTitle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/spacing_8dp"
-      android:layout_marginTop="4dp"
-      android:layout_marginEnd="@dimen/spacing_16dp"
-      android:padding="@dimen/spacing_24dp"
+      android:paddingTop="@dimen/dim_5dp"
       android:ellipsize="end"
       android:gravity="start"
-      android:text="ew"
       android:textAlignment="viewStart"
       android:textColor="@color/text_color_primary_dark"
       android:textSize="@dimen/text_size_16sp"
       tools:text="News title " />
+
+      <TextView
+          android:id="@+id/articleTime"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="4dp"
+          android:ellipsize="end"
+          android:gravity="start"
+          android:textAlignment="viewStart"
+          android:textColor="@color/text_color_primary_dark"
+          android:textSize="@dimen/text_size_12sp"
+          tools:text="News Time "
+          android:layout_gravity="bottom"
+
+          />
+    </LinearLayout>
 
 </LinearLayout>
