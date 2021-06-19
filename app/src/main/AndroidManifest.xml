@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mvvm.posts">
+    package="com.mvvm.news">
 
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,10 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
-        android:name="com.mvvm.posts.MyApp"
+        android:name="com.mvvm.news.MyApp"
         >
 
-        <activity android:name="com.mvvm.posts.MainActivity"
+        <activity android:name="com.mvvm.news.MainActivity"
             >
 
             <intent-filter>

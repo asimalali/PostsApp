@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.mvvm.posts"
+        applicationId "com.mvvm.Newss"
         minSdkVersion 29
         targetSdkVersion 30
         versionCode 1
@@ -45,7 +45,7 @@ android {
         stage {
             dimension "build"
 
-            buildConfigField "String", BASE_URL, "\"https://jsonplaceholder.typicode.com/\""
+            buildConfigField "String", BASE_URL, "\"https://newsapi.org/v2/\""
 
         }
 
@@ -101,5 +101,7 @@ dependencies {
     // swiperefresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
+    implementation 'com.squareup.picasso:picasso:2.5.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 }
